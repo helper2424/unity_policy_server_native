@@ -35,7 +35,8 @@ int ClientsQueue::pop()
 	return result;
 }
 
-void ClientsQueue::stop_notify()
+void ClientsQueue::stop_notify(size_t handlers_count)
 {
-	this->queue.enqueue(-1);
+	for(size_t i = 0; i<handlers_count; i++)
+		this->queue.enqueue(-1);
 }

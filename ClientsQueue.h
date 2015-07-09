@@ -13,7 +13,7 @@ public:
 	static ClientsQueue *get_instance();
 	void push(int);
 	int pop();
-	void stop_notify();
+	void stop_notify(size_t handlers_count);
 private:
 
 	static ClientsQueue *instance;

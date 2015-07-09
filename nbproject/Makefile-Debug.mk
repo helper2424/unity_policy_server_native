@@ -58,7 +58,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-lev -lboost_program_options
+LDLIBSOPTIONS=-lev -lboost_program_options -lpthread
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -70,31 +70,31 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/unity_policy_server_native: ${OBJECTF
 
 ${OBJECTDIR}/ClientsQueue.o: ClientsQueue.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -Werror -std=c++11 -o ${OBJECTDIR}/ClientsQueue.o ClientsQueue.cpp
+	$(COMPILE.cc) -g -Wall -std=c++11 -o ${OBJECTDIR}/ClientsQueue.o ClientsQueue.cpp
 
 ${OBJECTDIR}/Connector.o: Connector.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -Werror -std=c++11 -o ${OBJECTDIR}/Connector.o Connector.cpp
+	$(COMPILE.cc) -g -Wall -std=c++11 -o ${OBJECTDIR}/Connector.o Connector.cpp
 
 ${OBJECTDIR}/EvThread.o: EvThread.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -Werror -std=c++11 -o ${OBJECTDIR}/EvThread.o EvThread.cpp
+	$(COMPILE.cc) -g -Wall -std=c++11 -o ${OBJECTDIR}/EvThread.o EvThread.cpp
 
 ${OBJECTDIR}/Handler.o: Handler.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -Werror -std=c++11 -o ${OBJECTDIR}/Handler.o Handler.cpp
+	$(COMPILE.cc) -g -Wall -std=c++11 -o ${OBJECTDIR}/Handler.o Handler.cpp
 
 ${OBJECTDIR}/Server.o: Server.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -Werror -std=c++11 -o ${OBJECTDIR}/Server.o Server.cpp
+	$(COMPILE.cc) -g -Wall -std=c++11 -o ${OBJECTDIR}/Server.o Server.cpp
 
 ${OBJECTDIR}/Thread.o: Thread.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -Werror -std=c++11 -o ${OBJECTDIR}/Thread.o Thread.cpp
+	$(COMPILE.cc) -g -Wall -std=c++11 -o ${OBJECTDIR}/Thread.o Thread.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -Werror -std=c++11 -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -Wall -std=c++11 -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:

@@ -12,8 +12,8 @@ class ResultEntry
 end
 
 $server = {address: "dev.voltapps.ru", port: 90}
-$threads = 1
-$requests = 2
+$threads = 10
+$requests = 200
 $requests_total = $threads*$requests
 $receive_text = '<?xml version="1.0"?>
 <cross-domain-policy>

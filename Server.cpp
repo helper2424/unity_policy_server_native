@@ -60,8 +60,8 @@ void Server::run()
 	for(auto &iter: this->handlers)
 		iter->stop_signal();
 
-	clients_queue()->stop_notify();
-	
+	clients_queue()->stop_notify(this->handlers.size());
+
 	for(auto &iter: this->handlers)
 		iter->stop();
 

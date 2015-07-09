@@ -350,7 +350,7 @@
 #   include <thread>
 #   include <queue>
 #   include <condition_variable>
-#endif  // ELPP_ASYNC_LOGGING 
+#endif  // ELPP_ASYNC_LOGGING
 #if defined(ELPP_STL_LOGGING)
 // For logging STL based templates
 #   include <list>
@@ -507,15 +507,15 @@ enum class Level : base::type::EnumType {
         /// @brief Informational events most useful for developers to debug application
         Debug = 4,
         /// @brief Severe error information that will presumably abort application
-        Fatal = 8, 
+        Fatal = 8,
         /// @brief Information representing errors in application but application will keep running
         Error = 16,
         /// @brief Useful when application has potentially harmful situtaions
-        Warning = 32, 
+        Warning = 32,
         /// @brief Information that can be highly useful and vary with verbose logging level.
         Verbose = 64,
         /// @brief Mainly useful to represent current progress of application
-        Info = 128, 
+        Info = 128,
         /// @brief Represents unknown level
         Unknown = 1010
 };
@@ -571,7 +571,7 @@ public:
         return Level::Unknown;
     }
     /// @brief Applies specified function to each level starting from startIndex
-    /// @param startIndex initial value to start the iteration from. This is passed as pointer and 
+    /// @param startIndex initial value to start the iteration from. This is passed as pointer and
     ///        is left-shifted so this can be used inside function (fn) to represent current level.
     /// @param fn function to apply with each level. This bool represent whether or not to stop iterating through levels.
     static inline void forEachLevel(base::type::EnumType* startIndex, const std::function<bool(void)>& fn) {
@@ -607,7 +607,7 @@ enum class ConfigurationType : base::type::EnumType {
     PerformanceTracking = 64,
    /// @brief Specifies log file max size.
    ///
-   /// @detail If file size of corresponding log file (for corresponding level) is >= specified size, log file will 
+   /// @detail If file size of corresponding log file (for corresponding level) is >= specified size, log file will
    /// be truncated and re-initiated.
     MaxLogFileSize = 128,
    /// @brief Specifies number of log entries to hold until we flush pending log data
@@ -672,7 +672,7 @@ public:
     /// @brief Applies specified function to each configuration type starting from startIndex
     /// @param startIndex initial value to start the iteration from. This is passed by pointer and is left-shifted
     ///        so this can be used inside function (fn) to represent current configuration type.
-    /// @param fn function to apply with each configuration type. 
+    /// @param fn function to apply with each configuration type.
     ///        This bool represent whether or not to stop iterating through configurations.
     static inline void forEachConfigType(base::type::EnumType* startIndex, const std::function<bool(void)>& fn) {
         base::type::EnumType cIndexMax = ConfigurationTypeHelper::kMaxValid;
@@ -1085,7 +1085,7 @@ public:
     /// @brief Creates new out file stream for specified filename.
     /// @return Pointer to newly created fstream or nullptr
     static base::type::fstream_t* newFileStream(const std::string& filename) {
-        base::type::fstream_t *fs = new base::type::fstream_t(filename.c_str(), 
+        base::type::fstream_t *fs = new base::type::fstream_t(filename.c_str(),
             base::type::fstream_t::out | base::type::fstream_t::app);
 #if defined(ELPP_UNICODE)
         std::locale elppUnicodeLocale("");
@@ -1188,7 +1188,7 @@ public:
         return fullPath.substr(0, lastSlashAt + 1);
     }
     /// @brief builds stripped filename and puts it in buff
-    static void buildStrippedFilename(const char* filename, char buff[], 
+    static void buildStrippedFilename(const char* filename, char buff[],
             std::size_t limit = base::consts::kSourceFilenameMaxLength) {
         std::size_t sizeOfFilename = strlen(filename);
         if (sizeOfFilename >= limit) {
@@ -1201,7 +1201,7 @@ public:
         STRCAT(buff, filename, limit);
     }
     /// @brief builds base filename and puts it in buff
-    static void buildBaseFilename(const std::string& fullPath, char buff[], 
+    static void buildBaseFilename(const std::string& fullPath, char buff[],
             std::size_t limit = base::consts::kSourceFilenameMaxLength,
             const char* seperator = base::consts::kFilePathSeperator) {
         const char *filename = fullPath.c_str();
@@ -1418,7 +1418,7 @@ public:
 class OS : base::StaticClass {
 public:
 #if ELPP_OS_WINDOWS
-    /// @brief Gets environment variables for Windows based OS. 
+    /// @brief Gets environment variables for Windows based OS.
     ///        We are not using <code>getenv(const char*)</code> because of CRT deprecation
     /// @param varname Variable name to get environment variable value for
     /// @return If variable exist the value of it otherwise nullptr
@@ -1752,7 +1752,7 @@ public:
                 std::string key = std::string(m_argv[i]);
                 key = key.substr(0, key.find_first_of('='));
                 if (hasParamWithValue(key.c_str())) {
-                    ELPP_INTERNAL_INFO(1, "Skipping [" << key << "] arg since it already has value [" 
+                    ELPP_INTERNAL_INFO(1, "Skipping [" << key << "] arg since it already has value ["
                         << getParamValue(key.c_str()) << "]");
                 } else {
                     m_paramsWithValue.insert(std::make_pair(key, std::string(v + 1)));
@@ -1923,7 +1923,7 @@ private:
 /// @brief A pointer registry mechanism to manage memory and provide search functionalities. (non-predicate version)
 ///
 /// @detail NOTE: This is thread-unsafe implementation (although it contains lock function, it does not use these functions)
-///         of AbstractRegistry<T_Ptr, Container>. Any implementation of this class should be  
+///         of AbstractRegistry<T_Ptr, Container>. Any implementation of this class should be
 ///         explicitly (by using lock functions)
 template <typename T_Ptr, typename T_Key = const char*>
 class Registry : public AbstractRegistry<T_Ptr, std::map<T_Key, T_Ptr*>> {
@@ -2636,7 +2636,7 @@ public:
         unsafeSetIfNotExist(Level::Global, ConfigurationType::PerformanceTracking, std::string("true"));
         unsafeSetIfNotExist(Level::Global, ConfigurationType::MaxLogFileSize, std::string("0"));
         unsafeSetIfNotExist(Level::Global, ConfigurationType::Format, std::string("%datetime %level [%logger] %msg"));
-        unsafeSetIfNotExist(Level::Debug, ConfigurationType::Format, 
+        unsafeSetIfNotExist(Level::Debug, ConfigurationType::Format,
             std::string("%datetime %level [%logger] [%user@%host] [%func] [%loc] %msg"));
         // INFO and WARNING are set to default by Level::Global
         unsafeSetIfNotExist(Level::Error, ConfigurationType::Format, std::string("%datetime %level [%logger] %msg"));
@@ -2776,7 +2776,7 @@ public:
                 }
                 if (quotesStart != std::string::npos && quotesEnd != std::string::npos) {
                     // Quote provided - check and strip if valid
-                    ELPP_ASSERT((quotesStart < quotesEnd), "Configuration error - No ending quote found in [" 
+                    ELPP_ASSERT((quotesStart < quotesEnd), "Configuration error - No ending quote found in ["
                         << currConfigStr << "]");
                     ELPP_ASSERT((quotesStart + 1 != quotesEnd), "Empty configuration value for [" << currConfigStr << "]");
                     if ((quotesStart != quotesEnd) && (quotesStart + 1 != quotesEnd)) {
@@ -2961,7 +2961,7 @@ private:
             try {
                 return confMap->at(Level::Global);
             } catch (...) {
-                ELPP_INTERNAL_ERROR("Unable to get configuration [" << confName << "] for level [" 
+                ELPP_INTERNAL_ERROR("Unable to get configuration [" << confName << "] for level ["
                     << LevelHelper::convertToString(level) << "]"
                         << std::endl << "Please ensure you have properly configured logger.", false);
                 return Conf_T();
@@ -2978,7 +2978,7 @@ private:
             try {
                 return confMap->at(Level::Global);
             } catch (...) {
-                ELPP_INTERNAL_ERROR("Unable to get configuration [" << confName << "] for level [" 
+                ELPP_INTERNAL_ERROR("Unable to get configuration [" << confName << "] for level ["
                     << LevelHelper::convertToString(level) << "]"
                         << std::endl << "Please ensure you have properly configured logger.", false);
             }
@@ -3032,10 +3032,10 @@ private:
             // sensative operation, we can live with another loop; (by the way this loop
             // is not very heavy either)
             } else if (conf->configurationType() == ConfigurationType::Format) {
-                setValue(conf->level(), base::LogFormat(conf->level(), 
+                setValue(conf->level(), base::LogFormat(conf->level(),
                     base::type::string_t(conf->value().begin(), conf->value().end())), &m_logFormatMap);
             } else if (conf->configurationType() == ConfigurationType::MillisecondsWidth) {
-                setValue(Level::Global, 
+                setValue(Level::Global,
                     base::MillisecondsWidth(static_cast<int>(getULong(conf->value()))), &m_millisecondsWidthMap);
             } else if (conf->configurationType() == ConfigurationType::PerformanceTracking) {
                 setValue(Level::Global, getBool(conf->value()), &m_performanceTrackingMap);
@@ -3141,7 +3141,7 @@ private:
             }
             if (fs == nullptr) {
                 // We display bad file error from newFileStream()
-                ELPP_INTERNAL_ERROR("Setting [TO_FILE] of [" 
+                ELPP_INTERNAL_ERROR("Setting [TO_FILE] of ["
                     << LevelHelper::convertToString(level) << "] to FALSE", false);
                 setValue(level, false, &m_toFileMap);
             }
@@ -3514,7 +3514,7 @@ public:
     inline bool enabled(Level level) const {
         return m_typedConfigurations->enabled(level);
     }
-    
+
 #if ELPP_VARIADIC_TEMPLATES_SUPPORTED
 #   define LOGGER_LEVEL_WRITERS_SIGNATURES(FUNCTION_NAME)\
     template <typename T, typename... Args>\
@@ -3522,10 +3522,10 @@ public:
     template <typename T>\
     inline void FUNCTION_NAME(const T&);
 
-    template <typename T, typename... Args> 
+    template <typename T, typename... Args>
     inline void verbose(int, const char*, const T&, const Args&...);
 
-    template <typename T> 
+    template <typename T>
     inline void verbose(int, const T&);
 
     LOGGER_LEVEL_WRITERS_SIGNATURES(info)
@@ -3591,7 +3591,7 @@ private:
     void resolveLoggerFormatSpec(void) const {
         base::type::EnumType lIndex = LevelHelper::kMinValid;
         LevelHelper::forEachLevel(&lIndex, [&](void) -> bool {
-            base::LogFormat* logFormat = 
+            base::LogFormat* logFormat =
                 const_cast<base::LogFormat*>(&m_typedConfigurations->logFormat(LevelHelper::castFromInt(lIndex)));
             base::utils::Str::replaceFirstWithEscape(logFormat->m_format, base::consts::kLoggerIdFormatSpecifier, m_id);
             return false;
@@ -3810,7 +3810,7 @@ public:
             setModules(commandLineArgs->getParamValue("-VMODULE"));
         }
     }
-    
+
     /// @brief Whether or not vModules enabled
     inline bool vModulesEnabled(void) {
         return !base::utils::hasFlag(LoggingFlag::DisableVModules, *m_pFlags);
@@ -3865,14 +3865,14 @@ public:
     virtual ~AsyncLogQueue() {
         ELPP_INTERNAL_INFO(6, "~AsyncLogQueue");
     }
-    
+
     inline AsyncLogItem next(void) {
         base::threading::ScopedLock scopedLock(lock());
         AsyncLogItem result = m_queue.front();
         m_queue.pop();
         return result;
     }
-    
+
     inline void push(const AsyncLogItem& item) {
         base::threading::ScopedLock scopedLock(lock());
         m_queue.push(item);
@@ -3980,7 +3980,7 @@ public:
     inline base::RegisteredLoggers* registeredLoggers(void) const {
         return m_registeredLoggers;
     }
-    
+
     inline base::VRegistry* vRegistry(void) const {
         return m_vRegistry;
     }
@@ -4169,7 +4169,7 @@ class DefaultLogDispatchCallback : public LogDispatchCallback {
 protected:
     void handle(const LogDispatchData* data) {
         m_data = data;
-        dispatch(std::move(m_data->logMessage()->logger()->logBuilder()->build(m_data->logMessage(), 
+        dispatch(std::move(m_data->logMessage()->logger()->logBuilder()->build(m_data->logMessage(),
             m_data->dispatchAction() == base::DispatchAction::NormalLog)));
     }
 private:
@@ -4192,7 +4192,7 @@ private:
                     }
                 } else {
                     ELPP_INTERNAL_ERROR("Log file for [" << LevelHelper::convertToString(m_data->logMessage()->level()) << "] "
-                        << "has not been configured but [TO_FILE] is configured to TRUE. [Logger ID: " 
+                        << "has not been configured but [TO_FILE] is configured to TRUE. [Logger ID: "
                         << m_data->logMessage()->logger()->id() << "]", false);
                 }
             }
@@ -4275,7 +4275,7 @@ public:
             base::threading::msleep(100);
         }
     }
-    
+
     virtual inline void start() {
         base::threading::msleep(5000); // Wait extra few seconds
         setContinueRunning(true);
@@ -4348,7 +4348,7 @@ public:
         static_cast<AsyncDispatchWorker*>(context)->run();
         return NULL;
     }
-    
+
     void setContinueRunning(bool value) {
         base::threading::ScopedLock scopedLock(m_continueRunningMutex);
         m_continueRunning = value;
@@ -4385,7 +4385,7 @@ public:
         if (logFormat->hasFlag(base::FormatFlags::DateTime)) {
             // DateTime
             base::utils::Str::replaceFirstWithEscape(logLine, base::consts::kDateTimeFormatSpecifier,
-                    base::utils::DateTime::getDateTime(logFormat->dateTimeFormat().c_str(), 
+                    base::utils::DateTime::getDateTime(logFormat->dateTimeFormat().c_str(),
                         &tc->millisecondsWidth(logMessage->level())));
         }
         if (logFormat->hasFlag(base::FormatFlags::Function)) {
@@ -4409,18 +4409,18 @@ public:
         if (logFormat->hasFlag(base::FormatFlags::Line)) {
             // Line
             char* buf = base::utils::Str::clearBuff(buff, base::consts::kSourceLineMaxLength);
-            buf = base::utils::Str::convertAndAddToBuff(logMessage->line(), 
+            buf = base::utils::Str::convertAndAddToBuff(logMessage->line(),
                 base::consts::kSourceLineMaxLength, buf, bufLim, false);
             base::utils::Str::replaceFirstWithEscape(logLine, base::consts::kLogLineFormatSpecifier, std::string(buff));
         }
         if (logFormat->hasFlag(base::FormatFlags::Location)) {
             // Location
-            char* buf = base::utils::Str::clearBuff(buff, 
+            char* buf = base::utils::Str::clearBuff(buff,
                 base::consts::kSourceFilenameMaxLength + base::consts::kSourceLineMaxLength);
             base::utils::File::buildStrippedFilename(logMessage->file().c_str(), buff);
             buf = base::utils::Str::addToBuff(buff, buf, bufLim);
             buf = base::utils::Str::addToBuff(":", buf, bufLim);
-            buf = base::utils::Str::convertAndAddToBuff(logMessage->line(), 
+            buf = base::utils::Str::convertAndAddToBuff(logMessage->line(),
                 base::consts::kSourceLineMaxLength, buf, bufLim, false);
             base::utils::Str::replaceFirstWithEscape(logLine, base::consts::kLogLocationFormatSpecifier, std::string(buff));
         }
@@ -4470,7 +4470,7 @@ public:
         }
         LogDispatchCallback* callback = nullptr;
         LogDispatchData data;
-        for (const std::pair<std::string, base::type::LogDispatchCallbackPtr>& h 
+        for (const std::pair<std::string, base::type::LogDispatchCallbackPtr>& h
                 : ELPP->m_logDispatchCallbacks) {
             callback = h.second.get();
             if (callback != nullptr && callback->enabled()) {
@@ -4565,7 +4565,7 @@ public:
     MessageBuilder(void) : m_logger(nullptr), m_containerLogSeperator(ELPP_LITERAL("")) {}
     void initialize(Logger* logger) {
         m_logger = logger;
-        m_containerLogSeperator = ELPP->hasFlag(LoggingFlag::NewLineForContainer) ? 
+        m_containerLogSeperator = ELPP->hasFlag(LoggingFlag::NewLineForContainer) ?
             ELPP_LITERAL("\n    ") : ELPP_LITERAL(", ");
     }
 
@@ -5000,7 +5000,7 @@ protected:
             }
         }
     }
-    
+
     void processDispatch() {
 #if ELPP_LOGGING_ENABLED
         if (ELPP->hasFlag(LoggingFlag::MultiLoggerSupport)) {
@@ -5108,11 +5108,11 @@ public:
         }
         ELPP_INTERNAL_ERROR("Too many arguments provided. Unable to handle. Please provide more format specifiers", false);
     }
-    template <typename T> 
+    template <typename T>
     inline void Logger::log_(Level level, int vlevel, const T& log) {
         if (level == Level::Verbose) {
             if (ELPP->vRegistry()->allowed(vlevel, __FILE__)) {
-                base::Writer(Level::Verbose, "FILE", 0, "FUNCTION", 
+                base::Writer(Level::Verbose, "FILE", 0, "FUNCTION",
                     base::DispatchAction::NormalLog, vlevel).construct(this, false) << log;
             } else {
                 stream().str(ELPP_LITERAL(""));
@@ -5126,8 +5126,8 @@ public:
         base::threading::ScopedLock scopedLock(lock());
         log_(level, 0, s, value, args...);
     }
-    template <typename T> 
-    inline void Logger::log(Level level, const T& log) { 
+    template <typename T>
+    inline void Logger::log(Level level, const T& log) {
         base::threading::ScopedLock scopedLock(lock());
         log_(level, 0, log);
     }
@@ -5242,7 +5242,7 @@ public:
         Checkpoint = 1, Complete = 2
     };
     // Do not use constructor, will run into multiple definition error, use init(PerformanceTracker*)
-    explicit PerformanceTrackingData(DataType dataType) : m_performanceTracker(nullptr), 
+    explicit PerformanceTrackingData(DataType dataType) : m_performanceTracker(nullptr),
         m_dataType(dataType), m_file(""), m_line(0), m_func("") {}
     inline const std::string* blockName(void) const;
     inline const struct timeval* startTime(void) const;
@@ -5265,7 +5265,7 @@ private:
     std::string m_checkpointId;
     const char* m_file;
     unsigned long int m_line;
-    const char* m_func;    
+    const char* m_func;
     inline void init(base::PerformanceTracker* performanceTracker, bool firstCheckpoint = false) {
         m_performanceTracker = performanceTracker;
         m_firstCheckpoint = firstCheckpoint;
@@ -5280,7 +5280,7 @@ class PerformanceTracker : public base::threading::ThreadSafe, public Loggable {
 public:
     PerformanceTracker(const std::string& blockName,
             base::TimestampUnit timestampUnit = base::TimestampUnit::Millisecond,
-            const std::string& loggerId = std::string(ELPP_CURR_FILE_PERFORMANCE_LOGGER), 
+            const std::string& loggerId = std::string(ELPP_CURR_FILE_PERFORMANCE_LOGGER),
             bool scopedLog = true, Level level = base::consts::kPerformanceTrackerDefaultLevel) :
         m_blockName(blockName), m_timestampUnit(timestampUnit), m_loggerId(loggerId), m_scopedLog(scopedLog),
         m_level(level), m_hasChecked(false), m_lastCheckpointId(std::string()), m_enabled(false) {
@@ -5329,7 +5329,7 @@ public:
 #if !defined(ELPP_DISABLE_PERFORMANCE_TRACKING) && ELPP_LOGGING_ENABLED
         if (m_enabled) {
             base::threading::ScopedLock scopedLock(lock());
-            base::utils::DateTime::gettimeofday(&m_endTime);            
+            base::utils::DateTime::gettimeofday(&m_endTime);
             base::type::string_t formattedTime = m_hasChecked ? getFormattedTimeTaken(m_lastCheckpointTime) : ELPP_LITERAL("");
             PerformanceTrackingData data(PerformanceTrackingData::DataType::Checkpoint);
             data.init(this);
@@ -5378,7 +5378,7 @@ private:
     const inline base::type::string_t getFormattedTimeTaken() const {
         return getFormattedTimeTaken(m_startTime);
     }
-    
+
     const base::type::string_t getFormattedTimeTaken(struct timeval startTime) const {
         if (ELPP->hasFlag(LoggingFlag::FixedTimeFormat)) {
             base::type::stringstream_t ss;
@@ -5733,7 +5733,7 @@ public:
     /// @brief Converts template to std::string - useful for loggable classes to log containers within log(std::ostream&) const
     template <typename T>
     static std::string convertTemplateToStdString(const T& templ) {
-        el::Logger* logger = 
+        el::Logger* logger =
             ELPP->registeredLoggers()->get(el::base::consts::kDefaultLoggerId);
         if (logger == nullptr) {
             return std::string();
@@ -5824,7 +5824,7 @@ public:
         reconfigureAllLoggers(Level::Global, configurationType, value);
     }
     /// @brief Reconfigures single configuration for all the loggers for specified level
-    static inline void reconfigureAllLoggers(Level level, ConfigurationType configurationType, 
+    static inline void reconfigureAllLoggers(Level level, ConfigurationType configurationType,
             const std::string& value) {
         for (base::RegisteredLoggers::iterator it = ELPP->registeredLoggers()->begin();
                 it != ELPP->registeredLoggers()->end(); ++it) {
@@ -5867,13 +5867,13 @@ public:
     /// @brief Sets configurations from global configuration file.
     static void configureFromGlobal(const char* globalConfigurationFilePath) {
         std::ifstream gcfStream(globalConfigurationFilePath, std::ifstream::in);
-        ELPP_ASSERT(gcfStream.is_open(), "Unable to open global configuration file [" << globalConfigurationFilePath 
+        ELPP_ASSERT(gcfStream.is_open(), "Unable to open global configuration file [" << globalConfigurationFilePath
             << "] for parsing.");
         std::string line = std::string();
         std::stringstream ss;
         Logger* logger = nullptr;
         auto configure = [&](void) {
-            ELPP_INTERNAL_INFO(8, "Configuring logger: '" << logger->id() << "' with configurations \n" << ss.str() 
+            ELPP_INTERNAL_INFO(8, "Configuring logger: '" << logger->id() << "' with configurations \n" << ss.str()
                 << "\n--------------");
             Configurations c;
             c.parseFromText(ss.str());
@@ -5905,7 +5905,7 @@ public:
             configure();
         }
     }
-    /// @brief Configures loggers using command line arg. Ensure you have already set command line args, 
+    /// @brief Configures loggers using command line arg. Ensure you have already set command line args,
     /// @return False if invalid argument or argument with no value provided, true if attempted to configure logger.
     ///         If true is returned that does not mean it has been configured successfully, it only means that it
     ///         has attempeted to configure logger using configuration file provided in argument
@@ -6633,7 +6633,7 @@ static T* checkNotNull(T* ptr, const char* name, const char* loggers, ...) {
 #   define INITIALIZE_EASYLOGGINGPP\
        ELPP_INIT_EASYLOGGINGPP(new el::base::Storage(el::LogBuilderPtr(new el::base::DefaultLogBuilder()),\
                                                           new el::base::AsyncDispatchWorker()))\
-       
+
 #else
 #   define INITIALIZE_EASYLOGGINGPP\
        ELPP_INIT_EASYLOGGINGPP(new el::base::Storage(el::LogBuilderPtr(new el::base::DefaultLogBuilder())))
