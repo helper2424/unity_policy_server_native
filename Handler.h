@@ -17,5 +17,5 @@ protected:
 	virtual void run();
 	void handle(int socket);
 private:
-	std::atomic<bool> is_run;
+	volatile std::atomic<bool> is_run;
 };

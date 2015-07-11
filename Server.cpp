@@ -3,11 +3,21 @@
 #include <iosfwd>
 #include <streambuf>
 #include "Server.h"
-#include "easylogging++.h"
+#include "defines.h"
 #include "ClientsQueue.h"
 
 void Server::run()
 {
+	this->handlers.reserve(this->handlers_count);
+	for(auto i = 0; i<handlers_count; i++)
+	{
+		auto handler = std::make_shared<Handler>();
+		this->handlers.push_back(handler);
+		handler->start();
+	}
+
+	LOG(INFO) << "Handlers started " << this->handlers.size();
+
 	std::stringstream ports_string;
 	bool comma = false;
 	for(auto &port: this->ports)
@@ -23,16 +33,6 @@ void Server::run()
 	}
 
 	LOG(INFO) << "Connectors started " << this->connectors.size() << ": " << ports_string.str();
-
-	this->handlers.reserve(this->handlers_count);
-	for(auto i = 0; i<handlers_count; i++)
-	{
-		auto handler = std::make_shared<Handler>();
-		this->handlers.push_back(handler);
-		handler->start();
-	}
-
-	LOG(INFO) << "Handlers started " << this->handlers.size();
 
 	this->sigint.set<&Server::on_terminate_signal>();
 	this->sigint.start(SIGINT);
@@ -63,7 +63,10 @@ void Server::run()
 	clients_queue()->stop_notify(this->handlers.size());
 
 	for(auto &iter: this->handlers)
+	{
 		iter->stop();
+		clients_queue()->stop_notify(this->handlers.size());
+	}
 
 	LOG(INFO) << "Handlers stopped";
 

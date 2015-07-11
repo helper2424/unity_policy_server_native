@@ -1,5 +1,5 @@
 #include "Thread.h"
-#include "easylogging++.h"
+#include "defines.h"
 
 Thread::Thread()
 {

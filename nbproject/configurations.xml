@@ -26,6 +26,7 @@
       <itemPath>Thread.h</itemPath>
       <itemPath>blockingconcurrentqueue.h</itemPath>
       <itemPath>concurrentqueue.h</itemPath>
+      <itemPath>defines.h</itemPath>
       <itemPath>easylogging++.h</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
@@ -54,7 +55,7 @@
         <ccTool>
           <architecture>2</architecture>
           <standard>8</standard>
-          <commandLine>-pedantic -pedantic-errors -Wall -Wextra -Wdeprecated -Wno-unknown-pragmas -march=native -O0</commandLine>
+          <commandLine>-pedantic -pedantic-errors -Wall -Wextra -Wdeprecated -Wno-unknown-pragmas -march=native -g -O0</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
@@ -92,6 +93,8 @@
       <item path="blockingconcurrentqueue.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="concurrentqueue.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="defines.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="easylogging++.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -145,6 +148,8 @@
       <item path="blockingconcurrentqueue.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="concurrentqueue.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="defines.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="easylogging++.h" ex="false" tool="3" flavor2="0">
       </item>

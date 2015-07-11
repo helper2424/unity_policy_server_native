@@ -7,7 +7,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
-#include "easylogging++.h"
+#include "defines.h"
 
 Handler::Handler():Thread(), is_run(true)
 {
@@ -36,12 +36,21 @@ void Handler::on_stop()
 
 void Handler::run()
 {
+	LOG(INFO) << "Handler with thread id " << this->thread.get_id() << " started";
 	while(this->is_run)
 	{
-
 		int socket_fd = clients_queue()->pop();
+
+		if (socket_fd < 0)
+		{
+			clients_queue()->push(-1);
+			break;
+		}
+
 		this->handle(socket_fd);
 	}
+
+	LOG(INFO) << "Handler with thread id " << this->thread.get_id() << " stopped";
 }
 
 void Handler::finalize()

@@ -1,15 +1,11 @@
 #include "Server.h"
 #include <vector>
 #include <boost/program_options.hpp>
-
-#define ELPP_THREAD_SAFE
-#define ELPP_FORCE_USE_STD_THREAD
-
-#include "easylogging++.h"
 #include <fstream>
 #include <iosfwd>
 #include <sstream>
 #include <string>
+#include "defines.h"
 
 INITIALIZE_EASYLOGGINGPP
 
@@ -22,7 +18,7 @@ int main(int argc, char** argv)
 
 	stringstream usage;
 	po::variables_map vm;
-	uint16_t handlers_count;
+	uint16_t handlers_count = 0;
 
 	usage << "Usage: " << argv[0] << " [ -h | -d [-c <handlers_count>] [-p <port>]... [-x <your_xml> | -f <path_to_xml>] ] \n" ;
 
@@ -41,13 +37,13 @@ int main(int argc, char** argv)
 	}
 	catch (po::error &e)
 	{
-		std::cout << desc;
+		LOG(INFO) << desc;
 		abort();
 	}
 
 	if (vm.count("help"))
 	{
-		std::cout << desc;
+		LOG(INFO) << desc;
 		return 0;
 	}
 
@@ -83,7 +79,7 @@ int main(int argc, char** argv)
 	}
 
 	if(text.empty())
-		LOG(ERROR) << "Your xml is empty";
+		LOG(WARNING) << "Your xml is empty";
 
 	if (vm.count("ports"))
 		ports_params = vm["ports"].as<ports_params_t>();

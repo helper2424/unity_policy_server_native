@@ -1,6 +1,5 @@
 #include "ClientsQueue.h"
-
-#include <mutex>
+#include "defines.h"
 
 ClientsQueue *ClientsQueue::instance = nullptr;
 
@@ -21,7 +20,6 @@ ClientsQueue* ClientsQueue::get_instance()
 void ClientsQueue::push(int client)
 {
 	this->queue.enqueue(client);
-	//this->cv.notify_one();
 }
 
 int ClientsQueue::pop()
@@ -29,8 +27,6 @@ int ClientsQueue::pop()
 	int result;
 
 	this->queue.wait_dequeue(result);
-//	std::unique_lock<mutex_t> lock(this->mutex);
-//	this->cv.wait(lock, [this, result]() -> bool { return this->queue.try_dequeue(result); } );
 
 	return result;
 }

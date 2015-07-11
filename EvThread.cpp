@@ -1,5 +1,5 @@
 #include "EvThread.h"
-#include "easylogging++.h"
+#include "defines.h"
 
 EvThread::EvThread():ev_loop_flags(0)
 {

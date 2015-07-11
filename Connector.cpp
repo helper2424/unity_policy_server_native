@@ -7,7 +7,7 @@
 
 #include <netinet/tcp.h>
 #include <string.h>
-#include "easylogging++.h"
+#include "defines.h"
 #include "ClientsQueue.h"
 
 Connector::Connector(uint16_t port):port(port)
