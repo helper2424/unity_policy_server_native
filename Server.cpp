@@ -62,16 +62,18 @@ void Server::run()
 
 	clients_queue()->stop_notify();
 
-	for(auto &iter: this->handlers)
-	{
-		iter->stop();
+	for(int i = 0; i < 100; i++)
 		clients_queue()->stop_notify();
-	}
+
+	for(auto &iter: this->handlers)
+		iter->stop();
 
 	LOG(INFO) << "Handlers stopped";
 
 	this->connectors.clear();
 	this->handlers.clear();
+
+	ClientsQueue::delete_instance();
 
 	LOG(INFO) << "Connectors and handlers removed";
 	LOG(INFO) << "Gracefull exit";
@@ -85,12 +87,9 @@ void Server::set_ports(ports_t ports)
 void Server::set_text(const std::string& text)
 {
 	if (text.empty())
-	{
 		this->text = DEFAULT_TEXT;
-		return;
-	}
-
-	this->text = text;
+	else
+		this->text = text;
 
 	LOG(INFO) << "Response text: \"" << this->text << "\"";
 }

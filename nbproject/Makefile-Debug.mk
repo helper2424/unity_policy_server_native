@@ -48,8 +48,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-m64 -pedantic -pedantic-errors -Wall -Wextra -Wdeprecated -Wno-unknown-pragmas -march=native -g -O0
-CXXFLAGS=-m64 -pedantic -pedantic-errors -Wall -Wextra -Wdeprecated -Wno-unknown-pragmas -march=native -g -O0
+CCFLAGS=-m64 -pedantic -pedantic-errors -Wall -Wextra -Wdeprecated -Wno-unknown-pragmas -march=native -g -O0 -fsanitize=address
+CXXFLAGS=-m64 -pedantic -pedantic-errors -Wall -Wextra -Wdeprecated -Wno-unknown-pragmas -march=native -g -O0 -fsanitize=address
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -66,7 +66,7 @@ LDLIBSOPTIONS=-lev -lboost_program_options -lpthread -ltbb
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/unity_policy_server_native: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/unity_policy_server_native ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/unity_policy_server_native ${OBJECTFILES} ${LDLIBSOPTIONS} -fsanitize=address
 
 ${OBJECTDIR}/ClientsQueue.o: ClientsQueue.cpp 
 	${MKDIR} -p ${OBJECTDIR}

@@ -43,15 +43,6 @@ void Handler::run()
 	while(this->is_run)
 	{
 		int socket_fd = clients_queue()->pop();
-
-		LOG(INFO) << "Handler with thread id " << this->thread.get_id() << " get socket " << socket_fd;
-
-		if (socket_fd < 0)
-		{
-			//clients_queue()->push(-1);
-			break;
-		}
-
 		this->handle(socket_fd);
 	}
 
@@ -65,7 +56,7 @@ void Handler::finalize()
 
 void Handler::handle(int socket)
 {
-	LOG(INFO) << "handle socket " << socket;
+	LOG(INFO) << "Handle socket " << socket;
 	if(socket < 0)
 		return;
 

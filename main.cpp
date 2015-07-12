@@ -2,7 +2,6 @@
 #include <vector>
 #include <boost/program_options.hpp>
 #include <fstream>
-#include <iosfwd>
 #include <sstream>
 #include <string>
 #include "defines.h"

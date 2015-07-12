@@ -1,20 +1,41 @@
 #include "ClientsQueue.h"
 #include "defines.h"
+#include <atomic>
 
-ClientsQueue *ClientsQueue::instance = nullptr;
+ClientsQueue* ClientsQueue::instance = nullptr;
+std::mutex ClientsQueue::create_mutex;
 
 ClientsQueue::ClientsQueue()
 {
+}
+
+ClientsQueue::~ClientsQueue()
+{
+	this->queue.abort();
+	this->queue.clear();
 }
 
 ClientsQueue* ClientsQueue::get_instance()
 {
 	if(ClientsQueue::instance == nullptr)
 	{
+		std::lock_guard<std::mutex> lock(create_mutex);
+
+		if(ClientsQueue::instance != nullptr)
+			return ClientsQueue::instance;
+
 		ClientsQueue::instance = new ClientsQueue;
 	}
 
 	return ClientsQueue::instance;
+}
+
+void ClientsQueue::delete_instance()
+{
+	std::lock_guard<std::mutex> lock(create_mutex);
+
+	delete ClientsQueue::instance;
+	ClientsQueue::instance = nullptr;
 }
 
 void ClientsQueue::push(int client)
@@ -33,7 +54,6 @@ int ClientsQueue::pop()
 	}
 	catch(...)
 	{
-		LOG(INFO) << "EXCEPTIOn";
 		result = -1;
 	}
 
@@ -42,13 +62,5 @@ int ClientsQueue::pop()
 
 void ClientsQueue::stop_notify()
 {
-	long int size = 0;
-	while(this->queue.size() <= 10000)
-	{
-		LOG(INFO) << "Queue size " << size;
-		this->push(-1);
-
-	}
-
-	//this->queue.abort();
+	this->queue.abort();
 }

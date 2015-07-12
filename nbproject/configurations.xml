@@ -56,7 +56,7 @@
           <incDir>
             <pElem>/usr/include/tbb</pElem>
           </incDir>
-          <commandLine>-pedantic -pedantic-errors -Wall -Wextra -Wdeprecated -Wno-unknown-pragmas -march=native -g -O0</commandLine>
+          <commandLine>-pedantic -pedantic-errors -Wall -Wextra -Wdeprecated -Wno-unknown-pragmas -march=native -g -O0 -fsanitize=address</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
@@ -66,6 +66,7 @@
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
             <linkerLibLibItem>tbb</linkerLibLibItem>
           </linkerLibItems>
+          <commandLine>-fsanitize=address</commandLine>
         </linkerTool>
       </compileType>
       <item path="ClientsQueue.cpp" ex="false" tool="1" flavor2="0">
