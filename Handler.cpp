@@ -8,9 +8,11 @@
 #include <unistd.h>
 
 #include "defines.h"
+#include "Server.h"
 
-Handler::Handler():Thread(), is_run(true)
+Handler::Handler(Server *server):Thread(), server(server), is_run(true)
 {
+
 }
 
 void Handler::stop()
@@ -37,13 +39,16 @@ void Handler::on_stop()
 void Handler::run()
 {
 	LOG(INFO) << "Handler with thread id " << this->thread.get_id() << " started";
+
 	while(this->is_run)
 	{
 		int socket_fd = clients_queue()->pop();
 
+		LOG(INFO) << "Handler with thread id " << this->thread.get_id() << " get socket " << socket_fd;
+
 		if (socket_fd < 0)
 		{
-			clients_queue()->push(-1);
+			//clients_queue()->push(-1);
 			break;
 		}
 
@@ -64,12 +69,8 @@ void Handler::handle(int socket)
 	if(socket < 0)
 		return;
 
-	const char * data = "<?xml version=\"1.0\"?>\n<cross-domain-policy>\n  <allow-access-from domain=\"*\" to-ports=\"*\"/>\n</cross-domain-policy>";
+	const char *data = this->server->get_text()->c_str();
 	send(socket, (void*)data, sizeof(char) * strlen(data), 0);
 	close(socket);
-
-//	char ip_address[INET_ADDRSTRLEN];
-//	inet_ntop(AF_INET, &(client_addr.sin_addr), ip_address, INET_ADDRSTRLEN);
-//	LOG(INFO) << "Handle request from " << ip_address << " port " << this->port;
 }
 

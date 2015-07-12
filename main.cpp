@@ -47,6 +47,12 @@ int main(int argc, char** argv)
 		return 0;
 	}
 
+	if (vm.count("daemon"))
+	{
+		if(daemon(1, 0) < 0)
+			LOG(ERROR) << "Can't fork to daemon mode";
+	}
+
 	ports_params_t ports_params = {{ 843 }};
 	string text;
 
@@ -66,9 +72,16 @@ int main(int argc, char** argv)
 
 		stringstream text_stream;
 		string buffer;
+		int i = 0;
 
 		while (getline (file, buffer))
+		{
+			if (i != 0)
+				text_stream << std::endl;
+
 			text_stream << buffer;
+			i++;
+		}
 
 		text = text_stream.str();
 

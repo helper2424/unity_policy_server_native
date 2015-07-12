@@ -19,20 +19,36 @@ ClientsQueue* ClientsQueue::get_instance()
 
 void ClientsQueue::push(int client)
 {
-	this->queue.enqueue(client);
+	if(!this->queue.try_push(client))
+		LOG(WARNING) << "Can't push socket " << client << " to queue";
 }
 
 int ClientsQueue::pop()
 {
 	int result;
 
-	this->queue.wait_dequeue(result);
+	try
+	{
+		this->queue.pop(result);
+	}
+	catch(...)
+	{
+		LOG(INFO) << "EXCEPTIOn";
+		result = -1;
+	}
 
 	return result;
 }
 
-void ClientsQueue::stop_notify(size_t handlers_count)
+void ClientsQueue::stop_notify()
 {
-	for(size_t i = 0; i<handlers_count; i++)
-		this->queue.enqueue(-1);
+	long int size = 0;
+	while(this->queue.size() <= 10000)
+	{
+		LOG(INFO) << "Queue size " << size;
+		this->push(-1);
+
+	}
+
+	//this->queue.abort();
 }

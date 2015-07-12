@@ -8,6 +8,8 @@
 #include "Connector.h"
 #include "Handler.h"
 
+#define DEFAULT_TEXT "<?xml version=\"1.0\"?>\n<cross-domain-policy>\n  <allow-access-from domain=\"*\" to-ports=\"*\"/>\n</cross-domain-policy>"
+
 class Server {
 public:
 	typedef std::vector<std::shared_ptr<Connector>> connectors_t;

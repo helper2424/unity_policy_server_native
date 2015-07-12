@@ -50,6 +50,8 @@ void Connector::init()
 
 void Connector::finalize()
 {
+	if (this->socket_d != 0)
+		close(this->socket_d);
 }
 
 void Connector::on_stop()

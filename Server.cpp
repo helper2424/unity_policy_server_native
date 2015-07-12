@@ -11,7 +11,7 @@ void Server::run()
 	this->handlers.reserve(this->handlers_count);
 	for(auto i = 0; i<handlers_count; i++)
 	{
-		auto handler = std::make_shared<Handler>();
+		auto handler = std::make_shared<Handler>(this);
 		this->handlers.push_back(handler);
 		handler->start();
 	}
@@ -60,12 +60,12 @@ void Server::run()
 	for(auto &iter: this->handlers)
 		iter->stop_signal();
 
-	clients_queue()->stop_notify(this->handlers.size());
+	clients_queue()->stop_notify();
 
 	for(auto &iter: this->handlers)
 	{
 		iter->stop();
-		clients_queue()->stop_notify(this->handlers.size());
+		clients_queue()->stop_notify();
 	}
 
 	LOG(INFO) << "Handlers stopped";
@@ -84,7 +84,15 @@ void Server::set_ports(ports_t ports)
 
 void Server::set_text(const std::string& text)
 {
+	if (text.empty())
+	{
+		this->text = DEFAULT_TEXT;
+		return;
+	}
+
 	this->text = text;
+
+	LOG(INFO) << "Response text: \"" << this->text << "\"";
 }
 
 void Server::set_handlers(uint16_t count)

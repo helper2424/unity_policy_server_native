@@ -1,6 +1,7 @@
 #pragma once
 
-#include "blockingconcurrentqueue.h"
+#include "defines.h"
+#include <tbb/concurrent_queue.h>
 
 class ClientsQueue
 {
@@ -8,7 +9,7 @@ public:
 	static ClientsQueue *get_instance();
 	void push(int);
 	int pop();
-	void stop_notify(size_t handlers_count);
+	void stop_notify();
 private:
 
 	static ClientsQueue *instance;
@@ -16,7 +17,7 @@ private:
 	ClientsQueue(const ClientsQueue &) = delete;
 	void operator=(const ClientsQueue &) = delete;
 
-	moodycamel::BlockingConcurrentQueue<int> queue;
+	tbb::concurrent_bounded_queue<int> queue;
 };
 
 inline ClientsQueue* clients_queue()

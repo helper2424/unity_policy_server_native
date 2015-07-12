@@ -4,10 +4,12 @@
 #include <ev++.h>
 #include <atomic>
 
+class Server;
+
 class Handler : public Thread
 {
 public:
-	Handler();
+	Handler(Server *server);
 	virtual void stop();
 	void stop_signal();
 protected:
@@ -16,6 +18,8 @@ protected:
 	virtual void on_stop();
 	virtual void run();
 	void handle(int socket);
+
+	Server *server;
 private:
 	volatile std::atomic<bool> is_run;
 };

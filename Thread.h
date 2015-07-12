@@ -11,6 +11,7 @@ public:
 	virtual ~Thread();
 	virtual void start();
 	void stop();
+	void detach();
 protected:
 	thread_t thread;
 

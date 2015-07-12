@@ -20,5 +20,11 @@ void Thread::stop()
 	this->thread.join();
 }
 
+void Thread::detach()
+{
+	this->thread.detach();
+}
+
+
 
 

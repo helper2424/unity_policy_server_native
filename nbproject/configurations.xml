@@ -24,8 +24,6 @@
       <itemPath>Server.h</itemPath>
       <itemPath>Thread.cpp</itemPath>
       <itemPath>Thread.h</itemPath>
-      <itemPath>blockingconcurrentqueue.h</itemPath>
-      <itemPath>concurrentqueue.h</itemPath>
       <itemPath>defines.h</itemPath>
       <itemPath>easylogging++.h</itemPath>
       <itemPath>main.cpp</itemPath>
@@ -55,6 +53,9 @@
         <ccTool>
           <architecture>2</architecture>
           <standard>8</standard>
+          <incDir>
+            <pElem>/usr/include/tbb</pElem>
+          </incDir>
           <commandLine>-pedantic -pedantic-errors -Wall -Wextra -Wdeprecated -Wno-unknown-pragmas -march=native -g -O0</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
@@ -63,6 +64,7 @@
             <linkerLibLibItem>ev</linkerLibLibItem>
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
+            <linkerLibLibItem>tbb</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
@@ -89,10 +91,6 @@
       <item path="Thread.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Thread.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="blockingconcurrentqueue.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="concurrentqueue.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="defines.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -144,10 +142,6 @@
       <item path="Thread.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Thread.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="blockingconcurrentqueue.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="concurrentqueue.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="defines.h" ex="false" tool="3" flavor2="0">
       </item>
