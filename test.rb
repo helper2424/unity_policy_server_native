@@ -30,6 +30,10 @@ def add_result data
 	}
 end
 
+puts "Calculate avarage server ping"
+
+average_ping = `ping -c 4 www.stackoverflow.com | tail -1| awk '{print $4}' | cut -d '/' -f 2`
+puts "Average ping #{average_ping}"
 puts "Start #{$requests_total} requests to server"
 puts "..."
 
