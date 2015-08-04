@@ -1,0 +1,5 @@
+macro(make_test NAME)
+	add_executable(${NAME} ${NAME}.cpp)
+	target_link_libraries(${NAME} ${LIBRARY_NAME})
+	add_test(NAME ${NAME} COMMAND ${NAME})
+endmacro(make_test)
