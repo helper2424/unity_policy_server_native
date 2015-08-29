@@ -1,5 +1,4 @@
 # - Find TBB
-# Find Thrad Building Blocks includes and library
 #
 #  TBB_INCLUDE_DIR
 #  TBB_LIBRARIES

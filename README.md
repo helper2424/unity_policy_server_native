@@ -24,7 +24,9 @@ Copy project to some directory
 ### 4. Build project 
 
 `cd unity_policy_server_native`
-`cmake ./build`
+`mkdir -p build`
+`cd build`
+`cmake ../`
 
 ### 3. Логирование
 
