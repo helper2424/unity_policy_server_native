@@ -1,2 +1,2 @@
-add_executable(unity_policy main.cpp Thread.cpp Server.cpp Handler.cpp EvThread.cpp Connector.cpp ClientsQueue.cpp)
-target_link_libraries(unity_policy ${Boost_LIBRARIES} ${Libev_LIBRARIES} ${TBB_LIBRARIES})
+add_executable(unity_policy_server ClientsQueue.cpp Connector.cpp EvThread.cpp Handler.cpp Server.cpp Thread.cpp main.cpp)
+target_link_libraries(unity_policy_server ${Boost_LIBRARIES} ${TBB_LIBRARIES} ${LIBEV_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
