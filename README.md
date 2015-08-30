@@ -27,6 +27,25 @@ Copy project to some directory
 `mkdir -p build`
 `cd build`
 `cmake ../`
+`make`
+`sudo make install`
+
+### 5. Check Installation
+
+Run command `unity_policy_server -h`
+If you see somthing like this 
+
+`2015-08-30 17:32:00,450 INFO  [default] Usage: unity_policy_server [ -h | -d [-c <handlers_count>] [-p <port>]... [-x <your_xml> | -f <path_to_xml>] ] 
+:
+  -h [ --help ]         Print help messages
+  -x [ --xml ] arg      Xml for respondong to requests
+  -f [ --file ] arg     Path to xml with policy
+  -p [ --ports ] arg    Ports to listen requests, by default 843 port used
+  -d [ --daemon ]       Use daemon function to detach pipes and daemonize 
+                        server
+  -c [ --count ] arg    Handlers count. One handler - one thread.
+`
+then policy server successfully installed.
 
 ### 3. Логирование
 
