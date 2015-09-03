@@ -35,13 +35,13 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/ClientsQueue.o \
-	${OBJECTDIR}/Connector.o \
-	${OBJECTDIR}/EvThread.o \
-	${OBJECTDIR}/Handler.o \
-	${OBJECTDIR}/Server.o \
-	${OBJECTDIR}/Thread.o \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/src/ClientsQueue.o \
+	${OBJECTDIR}/src/Connector.o \
+	${OBJECTDIR}/src/EvThread.o \
+	${OBJECTDIR}/src/Handler.o \
+	${OBJECTDIR}/src/Server.o \
+	${OBJECTDIR}/src/Thread.o \
+	${OBJECTDIR}/src/main.o
 
 
 # C Compiler Flags
@@ -68,33 +68,33 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/unity_policy_server_native: ${OBJECTF
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/unity_policy_server_native ${OBJECTFILES} ${LDLIBSOPTIONS} -fsanitize=address
 
-${OBJECTDIR}/ClientsQueue.o: ClientsQueue.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -Wall -I/usr/include/tbb -std=c++11 -o ${OBJECTDIR}/ClientsQueue.o ClientsQueue.cpp
+${OBJECTDIR}/src/ClientsQueue.o: src/ClientsQueue.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	$(COMPILE.cc) -g -Wall -I/usr/include/tbb -std=c++11 -o ${OBJECTDIR}/src/ClientsQueue.o src/ClientsQueue.cpp
 
-${OBJECTDIR}/Connector.o: Connector.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -Wall -I/usr/include/tbb -std=c++11 -o ${OBJECTDIR}/Connector.o Connector.cpp
+${OBJECTDIR}/src/Connector.o: src/Connector.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	$(COMPILE.cc) -g -Wall -I/usr/include/tbb -std=c++11 -o ${OBJECTDIR}/src/Connector.o src/Connector.cpp
 
-${OBJECTDIR}/EvThread.o: EvThread.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -Wall -I/usr/include/tbb -std=c++11 -o ${OBJECTDIR}/EvThread.o EvThread.cpp
+${OBJECTDIR}/src/EvThread.o: src/EvThread.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	$(COMPILE.cc) -g -Wall -I/usr/include/tbb -std=c++11 -o ${OBJECTDIR}/src/EvThread.o src/EvThread.cpp
 
-${OBJECTDIR}/Handler.o: Handler.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -Wall -I/usr/include/tbb -std=c++11 -o ${OBJECTDIR}/Handler.o Handler.cpp
+${OBJECTDIR}/src/Handler.o: src/Handler.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	$(COMPILE.cc) -g -Wall -I/usr/include/tbb -std=c++11 -o ${OBJECTDIR}/src/Handler.o src/Handler.cpp
 
-${OBJECTDIR}/Server.o: Server.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -Wall -I/usr/include/tbb -std=c++11 -o ${OBJECTDIR}/Server.o Server.cpp
+${OBJECTDIR}/src/Server.o: src/Server.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	$(COMPILE.cc) -g -Wall -I/usr/include/tbb -std=c++11 -o ${OBJECTDIR}/src/Server.o src/Server.cpp
 
-${OBJECTDIR}/Thread.o: Thread.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -Wall -I/usr/include/tbb -std=c++11 -o ${OBJECTDIR}/Thread.o Thread.cpp
+${OBJECTDIR}/src/Thread.o: src/Thread.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	$(COMPILE.cc) -g -Wall -I/usr/include/tbb -std=c++11 -o ${OBJECTDIR}/src/Thread.o src/Thread.cpp
 
-${OBJECTDIR}/main.o: main.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -g -Wall -I/usr/include/tbb -std=c++11 -o ${OBJECTDIR}/main.o main.cpp
+${OBJECTDIR}/src/main.o: src/main.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	$(COMPILE.cc) -g -Wall -I/usr/include/tbb -std=c++11 -o ${OBJECTDIR}/src/main.o src/main.cpp
 
 # Subprojects
 .build-subprojects:

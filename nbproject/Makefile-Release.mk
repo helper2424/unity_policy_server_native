@@ -35,13 +35,13 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/ClientsQueue.o \
-	${OBJECTDIR}/Connector.o \
-	${OBJECTDIR}/EvThread.o \
-	${OBJECTDIR}/Handler.o \
-	${OBJECTDIR}/Server.o \
-	${OBJECTDIR}/Thread.o \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/src/ClientsQueue.o \
+	${OBJECTDIR}/src/Connector.o \
+	${OBJECTDIR}/src/EvThread.o \
+	${OBJECTDIR}/src/Handler.o \
+	${OBJECTDIR}/src/Server.o \
+	${OBJECTDIR}/src/Thread.o \
+	${OBJECTDIR}/src/main.o
 
 
 # C Compiler Flags
@@ -68,40 +68,40 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/unity_policy_server_native: ${OBJECTF
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/unity_policy_server_native ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/ClientsQueue.o: ClientsQueue.cpp 
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/src/ClientsQueue.o: src/ClientsQueue.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ClientsQueue.o ClientsQueue.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/ClientsQueue.o src/ClientsQueue.cpp
 
-${OBJECTDIR}/Connector.o: Connector.cpp 
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/src/Connector.o: src/Connector.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Connector.o Connector.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Connector.o src/Connector.cpp
 
-${OBJECTDIR}/EvThread.o: EvThread.cpp 
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/src/EvThread.o: src/EvThread.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EvThread.o EvThread.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EvThread.o src/EvThread.cpp
 
-${OBJECTDIR}/Handler.o: Handler.cpp 
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/src/Handler.o: src/Handler.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Handler.o Handler.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Handler.o src/Handler.cpp
 
-${OBJECTDIR}/Server.o: Server.cpp 
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/src/Server.o: src/Server.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server.o Server.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Server.o src/Server.cpp
 
-${OBJECTDIR}/Thread.o: Thread.cpp 
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/src/Thread.o: src/Thread.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Thread.o Thread.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Thread.o src/Thread.cpp
 
-${OBJECTDIR}/main.o: main.cpp 
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/src/main.o: src/main.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
 
 # Subprojects
 .build-subprojects:

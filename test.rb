@@ -11,7 +11,7 @@ class ResultEntry
 	end
 end
 
-$server = {address: "dev.voltapps.ru", port: 90}
+$server = {address: "dev.voltapps.ru", port: 843}
 $threads = 10
 $requests = 200
 $requests_total = $threads*$requests
@@ -49,7 +49,7 @@ $threads.times {
 
 				# http://stackoverflow.com/questions/9853516/set-socket-timeout-in-ruby-via-so-rcvtimeo-socket-option
 				s.setsockopt(Socket::SOL_SOCKET, Socket::SO_RCVTIMEO, 1)
-				a = s.read $receive_text.bytesize, 12
+				a = s.read $receive_text.bytesize
 				end_time = Time.now
 
 				raise "Incorrect response text #{a.to_s}" if a.to_s != $receive_text

@@ -15,11 +15,16 @@ int main(int argc, char** argv)
 	namespace po = boost::program_options;
 	typedef vector<uint16_t> ports_params_t;
 
+	el::Configurations log_conf;
+	log_conf.setToDefault();
+
 	stringstream usage;
 	po::variables_map vm;
 	uint16_t handlers_count = 0;
+	uint32_t log_file_size = 2097152; // 2 MB by default
+	std::string log_file = "/var/log/unity_policy_server/policy.log";
 
-	usage << "Usage: " << argv[0] << " [ -h | -d [-c <handlers_count>] [-p <port>]... [-x <your_xml> | -f <path_to_xml>] ] \n" ;
+	usage << "Usage: " << argv[0] << " [ -h | -d [-c <handlers_count>] [-p <port>]... [-x <your_xml> | -f <path_to_xml>] [-s <log_file_size>] [-l <path to log file>]] \n" ;
 
 	po::options_description desc(usage.str().c_str());
 	desc.add_options()
@@ -28,7 +33,9 @@ int main(int argc, char** argv)
 	  ("file,f", po::value<std::string>(), "Path to xml with policy")
 	  ("ports,p", po::value<ports_params_t>(), "Ports to listen requests, by default 843 port used")
 	  ("daemon,d", "Use daemon function to detach pipes and daemonize server")
-	  ("count,c", po::value<uint16_t>(), "Handlers count. One handler - one thread.");
+	  ("count,c", po::value<uint16_t>(), "Handlers count. One handler - one thread.")
+	  ("log,l", po::value<std::string>(), "Log file path")
+	  ("log_size,s", po::value<uint32_t>(), "Log file size in bytes");
 
 	try
 	{
@@ -46,11 +53,19 @@ int main(int argc, char** argv)
 		return 0;
 	}
 
+	if (vm.count("log"))
+		log_file = vm["log"].as<string>();
+
+	
+
 	if (vm.count("daemon"))
 	{
 		if(daemon(1, 0) < 0)
 			LOG(ERROR) << "Can't fork to daemon mode";
 	}
+
+	if (vm.count("log_size"))
+		log_file_size = vm["log_size"].as<uint32_t>();
 
 	ports_params_t ports_params = {{ 843 }};
 	string text;
@@ -106,6 +121,12 @@ int main(int argc, char** argv)
 
 	if(handlers_count == 0)
 		handlers_count = 2;
+
+	log_conf.setGlobally(el::ConfigurationType::Filename, log_file.c_str());
+	stringstream buffer;
+	buffer << log_file_size;
+	log_conf.setGlobally(el::ConfigurationType::MaxLogFileSize, buffer.str());
+	el::Loggers::reconfigureLogger("default", log_conf);
 
 	Server server;
 	server.set_ports(move(ports));
