@@ -56,7 +56,7 @@ int main(int argc, char** argv)
 	if (vm.count("log"))
 		log_file = vm["log"].as<string>();
 
-	
+
 
 	if (vm.count("daemon"))
 	{
@@ -127,12 +127,22 @@ int main(int argc, char** argv)
 	buffer << log_file_size;
 	log_conf.setGlobally(el::ConfigurationType::MaxLogFileSize, buffer.str());
 	el::Loggers::reconfigureLogger("default", log_conf);
+	el::Helpers::installPreRollOutCallback([](const char* filename, std::size_t)
+	{
+		std::stringstream ss;
+		ss << "log_file_name=\"" << filename << "\";";
+		ss << "mv $log_file_name ${log_file_name%.*}.`date \"+%Y_%m_%d_%H:%M:%S\"`.${log_file_name##*.};";
+		system(ss.str().c_str());
+	});
+	el::Loggers::addFlag(el::LoggingFlag::StrictLogFileSizeCheck);
 
 	Server server;
 	server.set_ports(move(ports));
 	server.set_text(text);
 	server.set_handlers(handlers_count);
 	server.run();
+
+	el::Helpers::uninstallPreRollOutCallback();
 
 	return 0;
 }
