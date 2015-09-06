@@ -32,7 +32,7 @@ end
 
 puts "Calculate average server ping"
 
-average_ping = `ping -c 10 #{$server[:address]} | tail -1| awk '{print $4}' | cut -d '/' -f 2`
+average_ping = `ping -c 10 #{$server[:address]} | tail -1| awk '{print $4}' | cut -d '/' -f 2`.to_f
 puts "Average ping #{average_ping}"
 puts "Start #{$requests_total} requests to server"
 puts "..."
