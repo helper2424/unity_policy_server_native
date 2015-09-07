@@ -23,6 +23,9 @@ int main(int argc, char** argv)
 	uint16_t handlers_count = 0;
 	uint32_t log_file_size = 2097152; // 2 MB by default
 	std::string log_file = "/var/log/unity_policy_server/policy.log";
+	ports_params_t ports_params = {{ 843 }};
+	string text;
+	Server::ports_t ports;
 
 	usage << "Usage: " << argv[0] << " [ -h | -d [-c <handlers_count>] [-p <port>]... [-x <your_xml> | -f <path_to_xml>] [-s <log_file_size>] [-l <path to log file>]] \n" ;
 
@@ -56,19 +59,11 @@ int main(int argc, char** argv)
 	if (vm.count("log"))
 		log_file = vm["log"].as<string>();
 
-
-
-	if (vm.count("daemon"))
-	{
-		if(daemon(1, 0) < 0)
-			LOG(ERROR) << "Can't fork to daemon mode";
-	}
+	if (vm.count("daemon") && daemon(1, 0) < 0)
+		LOG(ERROR) << "Can't fork to daemon mode";
 
 	if (vm.count("log_size"))
 		log_file_size = vm["log_size"].as<uint32_t>();
-
-	ports_params_t ports_params = {{ 843 }};
-	string text;
 
 	if (vm.count("xml"))
 	{
@@ -111,8 +106,6 @@ int main(int argc, char** argv)
 	if (vm.count("ports"))
 		ports_params = vm["ports"].as<ports_params_t>();
 
-	Server::ports_t ports;
-
 	for(auto &port: ports_params)
 		ports.insert(port);
 
@@ -134,6 +127,7 @@ int main(int argc, char** argv)
 		ss << "mv $log_file_name ${log_file_name%.*}.`date \"+%Y_%m_%d_%H:%M:%S\"`.${log_file_name##*.};";
 		system(ss.str().c_str());
 	});
+	
 	el::Loggers::addFlag(el::LoggingFlag::StrictLogFileSizeCheck);
 
 	Server server;

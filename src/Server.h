@@ -20,7 +20,7 @@ public:
 	void set_ports(ports_t);
 	void set_text(const std::string&);
 	void set_handlers(uint16_t);
-	const std::string* get_text();
+	const std::string* get_text() const;
 protected:
 	ev::default_loop loop;
 	ev::sig sigint;

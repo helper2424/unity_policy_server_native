@@ -28,12 +28,10 @@ void Handler::stop_signal()
 
 void Handler::init()
 {
-
 }
 
 void Handler::on_stop()
 {
-
 }
 
 void Handler::run()

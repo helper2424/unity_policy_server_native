@@ -12,7 +12,7 @@ public:
 	static void delete_instance();
 	void push(int);
 	int pop();
-	void stop_notify();
+	void stop();
 private:
 
 	static ClientsQueue* instance;

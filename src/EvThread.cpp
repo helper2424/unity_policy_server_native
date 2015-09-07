@@ -3,7 +3,7 @@
 
 EvThread::EvThread():ev_loop_flags(0)
 {
-	LOG(INFO) << "Thread " << this->thread.get_id() << " created";
+	LOG(INFO) << "Thread created";
 }
 
 EvThread::~EvThread()

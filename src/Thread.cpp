@@ -24,7 +24,3 @@ void Thread::detach()
 {
 	this->thread.detach();
 }
-
-
-
-

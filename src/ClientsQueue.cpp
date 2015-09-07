@@ -60,7 +60,7 @@ int ClientsQueue::pop()
 	return result;
 }
 
-void ClientsQueue::stop_notify()
+void ClientsQueue::stop()
 {
 	this->queue.abort();
 }

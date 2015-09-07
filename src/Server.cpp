@@ -28,6 +28,7 @@ void Server::run()
 
 		if(comma)
 			ports_string << ',';
+
 		ports_string << port;
 		comma = true;
 	}
@@ -60,10 +61,7 @@ void Server::run()
 	for(auto &iter: this->handlers)
 		iter->stop_signal();
 
-	clients_queue()->stop_notify();
-
-	for(int i = 0; i < 100; i++)
-		clients_queue()->stop_notify();
+	clients_queue()->stop();
 
 	for(auto &iter: this->handlers)
 		iter->stop();
@@ -99,7 +97,7 @@ void Server::set_handlers(uint16_t count)
 	this->handlers_count = count;
 }
 
-const std::string* Server::get_text()
+const std::string* Server::get_text() const
 {
 	return &this->text;
 }
