@@ -7,3 +7,4 @@
 #include "easylogging++.h"
 
 #define TBB_USE_EXCEPTIONS 1
+#define REPORT_TIMEOUT 60

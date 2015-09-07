@@ -54,7 +54,6 @@ void Handler::finalize()
 
 void Handler::handle(int socket)
 {
-	LOG(INFO) << "Handle socket " << socket;
 	if(socket < 0)
 		return;
 

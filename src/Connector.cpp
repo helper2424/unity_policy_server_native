@@ -10,7 +10,7 @@
 #include "defines.h"
 #include "ClientsQueue.h"
 
-Connector::Connector(uint16_t port):port(port)
+Connector::Connector(uint16_t port):port(port), handled_clients(0)
 {
 	ev_loop_flags |= EVBACKEND_EPOLL;
 }
@@ -46,6 +46,10 @@ void Connector::init()
 	this->connect_watcher.set<Connector, &Connector::connnect>(this);
 	this->connect_watcher.set(socket_d, EV_READ);
 	this->connect_watcher.start();
+
+	this->reporter.set(*this->loop);
+	this->reporter.set<Connector, &Connector::report>(this);
+	this->reporter.start(0, REPORT_TIMEOUT);
 }
 
 void Connector::finalize()
@@ -57,6 +61,7 @@ void Connector::finalize()
 void Connector::on_stop()
 {
 	this->connect_watcher.stop();
+	this->reporter.stop();
 }
 
 
@@ -70,9 +75,18 @@ void Connector::connnect(ev::io& connect_event, int )
 	client_sd = accept(connect_event.fd, (struct sockaddr *)&client_addr, &client_len);
 
 	clients_queue()->push(client_sd);
+
+	this->handled_clients++;
 }
 
-void Connector::handle(int)
+void Connector::report()
 {
+	uint64_t clients_count = this->handled_clients;
 
+	if (clients_count > 0)
+	{
+		this->handled_clients = 0;
+
+		LOG(INFO) << "Handled " <<  clients_count << " clients by " << this->port << " port";
+	}
 }
