@@ -6,13 +6,10 @@ How it use
 ## Installing
 
 ### 1. Dependencies
-To install project you need utilities git, cmake, make, gcc and some libraries tbb, libev, boost.
-
-#### debian
+To install project you need utilities git, cmake, make, gcc and some libraries tbb, libev, boost (example for debian).
 
 `sudo aptitude install git cmake make gcc g++`
 `sudo aptitude install libtbb-dev libev-dev libboost-program-options-dev`
-
 
 ### 2. Clone project
 
@@ -47,68 +44,67 @@ If you see somthing like this
 `
 then policy server successfully installed.
 
-### 3. Логирование
+Now, try 
+`sudo unity_policy_server`
 
-По-умолчанию логи пишутся в файл `/var/log/unity_policy_server/policy.log` , поэтому необходимо создать каталог `/var/log/unity_policy_server` :
-
-`mkdir -p /var/log/unity_policy_server` 
-
-### 4. Проверка работоспособности
-
-Cервер использует порт 843, для того, чтобы его занять необходимы привилегии суперпользователя. Для проверки работоспособности сервера необходимо выполнить следующие команды:
-
-`cd unity_policy_server/target`  
-`sudo java -jar unity_policy_server-1.0-SNAPSHOT-jar-with-dependencies.jar`
-
-После чего демон должен запуститься, для проверки того что сервер работает в другой консоли надо выполнить команду
+And in other shell 
 
 `nc 127.0.0.1 843`
 
-Если сервер работает корректно, то результатом работы последенй команды будет следующее:
+If you something like this
 
 `<?xml version="1.0"?>
 <cross-domain-policy>
   <allow-access-from domain="*" to-ports="*"/>
 </cross-domain-policy>`
 
-### 5. Init скрипты
+then policy server successfully reponse policy xml.
 
-В каталоге init.d лежат примеры скриптов для автоматического запуска сервера. Вам необходимо прописать пути до jar файла и перенести необходимый вам скрипт в init.d каталог, пример для opensuse/debian/ubuntu
+### 3. Log
 
-`cd init.d/opensuse_debian`  
-`vi vi unity_policy_server.example`
+By default log file here `/var/log/unity_policy_server/policy.log` , because you need create directory for logs:
 
-Устанавливаете путь до jar файла
+`mkdir -p /var/log/unity_policy_server` 
+
+You can customize log directory and log file name by parameter `-l` in server executable. 
+
+### 5. Init scripts
+
+If you want, you can setup init scripts for server. `init` directory has init script for debian/suse/opensuse/ubuntu. For other OS'es you can write custom scripts or ask me for this in email `helper2424@gmail.com`. So if this script fit for yor os then
+
+`cd init/opensuse_debian`  
+`vi unity_policy_server.example`
+
+Setup your values for `DAEMON` and `LOG_DIR`, copy init scripts to init.d directory:
 
 `sudo cp unity_policy_server.example /etc/init.d/unity_policy_server`
 `sudo chmod +x /etc/init.d/unity_policy_server`  
 `sudo chown root:root /etc/init.d/unity_policy_server`  
 
-Далее необходимо добавить скрипт каталоги дла автозапуска (пример для дебиан):
+Next, need add init scripts to startups directories:
+
+#### debian 
 
 `sudo update-rc.d unity_policy_server defaults`
 
-### 6. Проверка
+### 6. Finish
 
-Если все прошло удачно, то на команду
+So, now you can run server through init script 
+
+`/etc/init.d/unity_policy_server restart`
+
+### 7. Troubleshooting
+
+Check server from some host
 
 `nc <your_server_ip> 843`  
 
-Будет возвращаться полиси для юнити плагина, если же этого не происходит, то проверьте не занят ли 843 порт на вашем сервере, и открыт ли 843 порт файрволом:
+If you get incorrect result, then check that server work correctly:
 
-`netstat -tupln | grep 843` - должен показать только нами запущенный сервер  
-`nmap <your_server_ip> -Pn -p 843`  - с удаленной машины должен показать что-то вроде  
+`netstat -tupln | grep 843` - run on server, you must see only unity_policy_server, else somebody bind 843 port  
+`nmap <your_server_ip> -Pn -p 843` - run from remote host, you must see something like this, else 843 blocked, or filtered by firewall
 
 `Host is up (0.054s latency).`  
 `PORT    STATE SERVICE`  
 `843/tcp open  unknown`  
-
-
-## Сборка кастомной версии 
-
-Если вы решили что-то изменить в сервере, то для сборки используйте мавен, команда для сборки
-
-`mvn  clean compile assembly:single`  
-
-Результируюйщий jar архив должен замениться в каталоге  `target`
 
