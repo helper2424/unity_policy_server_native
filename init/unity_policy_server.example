@@ -30,7 +30,7 @@ fi
 DESC="Native policy server instance"
 NAME=unity_policy_server
 DAEMON=/usr/local/bin/unity_policy_server
-DAEMON_ARGS="-d"
+DAEMON_ARGS=""
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
 LOG_DIR="/var/log/unity_policy_server"
