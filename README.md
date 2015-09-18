@@ -14,7 +14,7 @@ Copy project to some directory
 `cd ~`  
 `git clone https://github.com/helper2424/unity_policy_server_native.git`  
 ### 4. Build project 
-`cd unity_policy_server_native` 
+`cd unity_policy_server_native`	 
 `mkdir -p build`    
 `cd build`  
 `cmake ../` 
