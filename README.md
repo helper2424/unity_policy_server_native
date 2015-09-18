@@ -48,7 +48,7 @@ You can customize log directory and log file name by parameter `-l` in server ex
 ### 5. Init scripts
 If you want, you can setup init scripts for server. `init` directory has init script for debian/suse/opensuse/ubuntu. For other OS'es you can write custom scripts or ask me for this in email `helper2424@gmail.com`. So if this script fit for yor os then
 
-`cd init/opensuse_debian`   
+`cd ../init`   
 `vi unity_policy_server.example`    
 
 Setup your values for `DAEMON` and `LOG_DIR`, copy init scripts to init.d directory:    
