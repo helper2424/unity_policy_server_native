@@ -54,8 +54,11 @@ void Connector::init()
 
 void Connector::finalize()
 {
-	if (this->socket_d != 0)
+	if (this->socket_d > 0)
+	{
+		shutdown(this->socket_d, 2);
 		close(this->socket_d);
+	}
 }
 
 void Connector::on_stop()
