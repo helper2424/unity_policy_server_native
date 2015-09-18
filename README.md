@@ -63,7 +63,7 @@ Next, need add init scripts to startups directories.*Command line for debian*:
 ### 6. Finish
 So, now you can run server through init script: 
 `/etc/init.d/unity_policy_server restart`
-### 7. Troubleshooting
+## Troubleshooting
 Check server from some host
 `nc <your_server_ip> 843`  
 If you get incorrect result, then check that server work correctly:
