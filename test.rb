@@ -11,8 +11,8 @@ class ResultEntry
 	end
 end
 
-$server = {address: "dev.voltapps.ru", port: 843}
-$threads = 10
+$server = {address: "inst3.voltapps.ru", port: 90}
+$threads = 100
 $requests = 200
 $requests_total = $threads*$requests
 $receive_text = '<?xml version="1.0"?>
@@ -27,6 +27,7 @@ $semaphore = Mutex.new
 def add_result data
 	$semaphore.synchronize {
 		$result_array.concat data
+		puts "#{$result_array.size} handled"
 	}
 end
 

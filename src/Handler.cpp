@@ -59,6 +59,7 @@ void Handler::handle(int socket)
 
 	const char *data = this->server->get_text()->c_str();
 	send(socket, (void*)data, sizeof(char) * strlen(data), 0);
+	shutdown(socket, 2);
 	close(socket);
 }
 
