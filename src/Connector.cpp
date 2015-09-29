@@ -19,7 +19,7 @@ void Connector::init()
 {
 	this->socket_d = socket(AF_INET, SOCK_STREAM, 0);
 	struct sockaddr_in address;
-	int buf;
+	int buf = 1;
 
 	if(this->socket_d < 0)
 	{
@@ -31,10 +31,10 @@ void Connector::init()
 	address.sin_family = AF_INET;
 	address.sin_port = htons(this->port);
 
-	if(setsockopt(this->socket_d, IPPROTO_TCP, TCP_NODELAY, (const char*)&buf, sizeof(this->socket_d)) == -1)
+	if(setsockopt(this->socket_d, IPPROTO_TCP, TCP_NODELAY, &buf, sizeof(this->socket_d)) == -1)
 		LOG(ERROR) << "Can't set socket option TCP_NODELAY with port " << this->port;
 
-	if(setsockopt(this->socket_d, SOL_SOCKET, SO_REUSEADDR, (const char*)&buf, sizeof(this->socket_d)) == -1)
+	if(setsockopt(this->socket_d, SOL_SOCKET, SO_REUSEADDR, &buf, sizeof(this->socket_d)) == -1)
 		LOG(ERROR) << "Can't set socket option SO_REUSEADDR with port " << this->port;
 
 	if(bind(socket_d, (struct sockaddr *)&address, sizeof(address)))
