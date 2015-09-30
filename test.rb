@@ -11,7 +11,7 @@ class ResultEntry
 	end
 end
 
-$server = {address: "inst3.voltapps.ru", port: 90}
+$server = {address: "", port: 843}
 $threads = 100
 $requests = 200
 $requests_total = $threads*$requests
